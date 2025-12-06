@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>HIDE - Demo Oficial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="HIDE es un juego de terror psicológico y sigilo donde debes sobrevivir en un corredor infinito mientras una presencia espectral te persigue." />
+  <style>
+    :root {
+      --bg-main: #050507;
+      --bg-secondary: #0f0f12;
+      --accent: #ff1f71;
+      --accent-soft: #35ffe0;
+      --text-main: #f4f4f4;
+      --text-muted: #b3b3b3;
+      --border-soft: rgba(255, 255, 255, 0.1);
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #222 0, #050507 45%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5, 5, 7, 0.95);
+      border-bottom: 1px solid var(--border-soft);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 0.15rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(255, 31, 113, 0.08);
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    section {
+      margin-top: 3rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 65%);
+      padding: 1.8rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("fondo-textura-horror.jpg"); /* Cambia por tu textura */
+      mix-blend-mode: soft-light;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      color: var(--accent-soft);
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 4vw, 2.8rem);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 12px rgba(255, 31, 113, 0.6);
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      max-width: 24rem;
+    }
+
+    .hero-highlight {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+      margin-bottom: 0.7rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .badge.accent {
+      border-color: var(--accent);
+      color: var(--accent-soft);
+      background: rgba(255, 31, 113, 0.12);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, border-color 0.1s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent-soft));
+      color: #050507;
+      box-shadow: 0 0 18px rgba(255, 31, 113, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(255, 31, 113, 0.8);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border-soft);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent-soft);
+      background: rgba(255, 31, 113, 0.08);
+    }
+
+    .hero-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong {
+      color: var(--accent-soft);
+    }
+
+    .hero-media {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      background: #000;
+      position: relative;
+      min-height: 220px;
+    }
+
+    .hero-media img,
+    .hero-media iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 0;
+    }
+
+    .hero-media-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+      pointer-events: none;
+    }
+
+    .hero-media-label {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(5, 5, 7, 0.8);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+    }
+
+    /* Grid sections */
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr);
+      gap: 1.6rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      padding: 1rem 1.1rem;
+      background: rgba(5, 5, 7, 0.9);
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.4rem;
+    }
+
+    ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    ul li span.bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 0.4rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      flex-shrink: 0;
+    }
+
+    /* Download section */
+    .download-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 1.6rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .download-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .download-badge {
+      border-radius: 999px;
+      border: 1px dashed var(--border-soft);
+      padding: 0.3rem 0.8rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .download-panel {
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      padding: 1rem 1.2rem;
+      background: radial-gradient(circle at top, rgba(255, 31, 113, 0.12), rgba(5, 5, 7, 0.95));
+      font-size: 0.85rem;
+    }
+
+    .download-panel strong {
+      color: var(--accent-soft);
+    }
+
+    /* Team */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .team-card {
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      padding: 0.9rem;
+      background: rgba(5, 5, 7, 0.92);
+      font-size: 0.9rem;
+    }
+
+    .team-name {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 1.8rem 1.25rem 2.4rem;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent-soft);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero-media {
+        order: -1;
+      }
+      .two-col,
+      .download-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+      section {
+        padding: 1.4rem 1rem;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-mark">H</div>
+      <span>HIDE</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#historia">Historia</a>
+      <a href="#caracteristicas">Características</a>
+      <a href="#demo">Demo</a>
+      <a href="#equipo">Equipo</a>
+    </nav>
+    <a href="#demo" class="nav-cta">Descargar demo</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="inicio">
+    <div class="hero">
+      <div>
+        <p class="hero-highlight">Demo jugable • Terror psicológico + sigilo</p>
+        <h1 class="hero-title">HIDE</h1>
+        <p class="hero-tagline">
+          Despiertas en un corredor oscuro y aparentemente infinito. Algo te está buscando.
+          No tiene prisa. Tú tampoco deberías hacer ruido.
+        </p>
+
+        <div class="badge-row">
+          <span class="badge accent">Survival</span>
+          <span class="badge accent">Stealth</span>
+          <span class="badge">Terror psicológico</span>
+          <span class="badge">PC • Demo gratuita</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#demo" class="btn btn-primary">
+            <span>Descargar demo</span>
+          </a>
+          <a href="#trailer" class="btn btn-ghost">
+            Ver trailer
+          </a>
+        </div>
+
+        <p class="hero-meta">
+          Edad recomendada: <strong>13+</strong> &nbsp;•&nbsp;
+          Para fans de <strong>Outlast, Amnesia, Little Nightmares, Thief</strong>.
+        </p>
+      </div>
+
+      <div class="hero-media" id="trailer">
+        <!-- Cambia el src por el enlace de tu video (YouTube, etc.) -->
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID_AQUI"
+          title="Trailer de HIDE"
+          allowfullscreen>
+        </iframe>
+        <div class="hero-media-overlay"></div>
+        <div class="hero-media-label">Trailer de la demo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORIA / GÉNERO -->
+  <section id="historia">
+    <h2 class="section-title">Historia</h2>
+    <p class="section-subtitle">Sobrevive al corredor infinito</p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>El lugar</h3>
+        <p>
+          El jugador despierta atrapado en un corredor oscuro, sin fin aparente. No recuerda cómo llegó ahí
+          ni cuánto tiempo lleva atrapado.
+        </p>
+        <p>
+          Una presencia espectral recorre el pasadizo, cazando a cualquiera que ose romper el silencio.
+          La única salida es avanzar con cuidado y usar la oscuridad a tu favor antes de ser atrapado.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Género</h3>
+        <p class="muted">
+          HIDE combina elementos de:
+        </p>
+        <ul>
+          <li><span class="bullet"></span><strong>Survival</strong>: recursos limitados, presión constante.</li>
+          <li><span class="bullet"></span><strong>Stealth (sigilo)</strong>: moverte y esconderte es clave para sobrevivir.</li>
+          <li><span class="bullet"></span><strong>Terror psicológico</strong>: tensión, sonido y ambiente construyen el miedo.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PÚBLICO / MECÁNICAS / AMBIENTE -->
+  <section id="caracteristicas">
+    <h2 class="section-title">Características de la demo</h2>
+    <p class="section-subtitle">Lo que encontrarás en HIDE</p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Público objetivo</h3>
+        <p>
+          Pensado para jugadores que disfrutan del terror psicológico y los juegos de sigilo,
+          donde la atmósfera y el sonido importan tanto como lo que ves en pantalla.
+        </p>
+        <ul>
+          <li><span class="bullet"></span>Edad recomendada: <strong>13+</strong>.</li>
+          <li><span class="bullet"></span>Ideal para fans del horror en primera persona.</li>
+        </ul>
+
+        <h3 style="margin-top: 1.2rem;">Mecánicas principales</h3>
+        <ul>
+          <li><span class="bullet"></span>Movimiento con teclado: <strong>W A S D</strong> (avanzar, retroceder, izquierda, derecha).</li>
+          <li><span class="bullet"></span>Explora pasadizos angostos y habitaciones conectadas.</li>
+          <li><span class="bullet"></span>Gestiona el tiempo y la distancia con el enemigo para sobrevivir.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Ambiente y enemigo</h3>
+        <ul>
+          <li><span class="bullet"></span>Corredores largos con habitaciones laterales que pueden ser tu refugio… o tu trampa.</li>
+          <li><span class="bullet"></span>Iluminación mínima para aumentar la tensión y obligarte a escuchar más que ver.</li>
+          <li><span class="bullet"></span>Un enemigo en movimiento constante, que reacciona a tu presencia.</li>
+        </ul>
+
+        <h3 style="margin-top: 1.2rem;">Progreso del prototipo</h3>
+        <ul>
+          <li><span class="bullet"></span>Mejora de ambientación y sonido.</li>
+          <li><span class="bullet"></span>Mejora de efectos visuales y movimiento.</li>
+          <li><span class="bullet"></span>Niveles y contador de tiempo para medir tu supervivencia.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCARGA DEMO -->
+  <section id="demo">
+    <h2 class="section-title">Descarga la demo</h2>
+    <p class="section-subtitle">Prueba HIDE antes que nadie</p>
+
+    <div class="download-grid">
+      <div>
+        <p>
+          Esta es una versión de prueba centrada en el corredor principal, el sistema de sigilo
+          y el comportamiento del enemigo. Ideal para recibir feedback y seguir mejorando el juego.
+        </p>
+        <p class="muted">
+          Nos interesa saber cómo vives la experiencia: ¿te generó tensión?, ¿qué tan difícil fue escapar?,
+          ¿qué mejorarías del sonido y las luces?
+        </p>
+
+        <div style="margin-top: 1.4rem;">
+          <!-- CAMBIA href POR TU ENLACE DE DESCARGA (Google Drive, itch.io, etc.) -->
+          <a href="https://tuenlace-de-descarga.com/hide-demo" class="btn btn-primary" download>
+            Descargar demo para Windows
+          </a>
+        </div>
+
+        <div class="download-badges">
+          <span class="download-badge">Sistema: Windows (x64)</span>
+          <span class="download-badge">Versión: Demo</span>
+          <span class="download-badge">Idioma: Español</span>
+        </div>
+      </div>
+
+      <div class="download-panel">
+        <p><strong>¿Cómo instalar?</strong></p>
+        <ul>
+          <li><span class="bullet"></span>Descarga el archivo .zip de la demo.</li>
+          <li><span class="bullet"></span>Descomprime todo el contenido en una carpeta.</li>
+          <li><span class="bullet"></span>Ejecuta el archivo <strong>HIDE.exe</strong>.</li>
+        </ul>
+        <p style="margin-top: 0.8rem;">
+          Si encuentras errores o bugs, puedes anotarlos y enviarnos tu feedback para las próximas versiones.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo">
+    <h2 class="section-title">Equipo</h2>
+    <p class="section-subtitle">Desarrolladores de HIDE</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-name">Bill Uriel Trujillo Fierro</div>
+        <div class="team-role">Game Developer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Patrick Joel Flores Muñante</div>
+        <div class="team-role">Game Developer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Pholc Herberth Contreras Prado</div>
+        <div class="team-role">Game Developer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Piero Rosales Vivanco</div>
+        <div class="team-role">Game Developer</div>
+      </div>
+    </div>
+
+    <p class="muted" style="margin-top: 1.2rem;">
+      Proyecto desarrollado como parte del curso de videojuegos, con foco en crear una experiencia corta,
+      intensa y orientada al terror psicológico.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>HIDE &copy; <span id="year"></span>. Demo para fines académicos.</p>
+  <p>¿Quieres dejarnos feedback? Escríbenos a
+    <a href="mailto:contacto@hide-game.dev">contacto@hide-game.dev</a> (cambia este correo por el tuyo).
+  </p>
+</footer>
+
+<script>
+  // Año dinámico en el footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
